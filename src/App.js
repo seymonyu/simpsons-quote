@@ -1,6 +1,6 @@
 import React from "react";
 import "./App.css";
-import GetQuoteSimp from "./components/getQuote";
+import GetQuoteSimp from "./components/GetQuote";
 import axios from "axios";
 
 class App extends React.Component {
