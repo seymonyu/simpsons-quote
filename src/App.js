@@ -1,26 +1,35 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React from "react";
+import "./App.css";
+import GetQuoteSimp from "./components/getQuote";
+import axios from "axios";
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+class App extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      simpsons: ""
+    };
+    this.getQuote = this.getQuote.bind(this);
+  }
+  getQuote() {
+    axios
+      .get("https://simpsons-quotes-api.herokuapp.com/quotes")
+      .then(response => response.data)
+      .then(data => {
+        this.setState({
+          simpsons: data[0]
+        });
+      });
+  }
+  render() {
+    return (
+      <div className="App">
+        <GetQuoteSimp simpsons={this.state.simpsons} />
+        <button type="button" onClick={this.getQuote}>
+          Get a Simpson Quote!
+        </button>
+      </div>
+    );
+  }
 }
-
 export default App;
